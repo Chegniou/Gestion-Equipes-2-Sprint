@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<head>
+<meta charset="utf-8">
+<title>Ajout des Equipes</title>
+</head>
+<body>
+	<div layout:fragment="Mycontent">
+		<div class="container mt-5">
+			<div class="card">
+				<div class="card-header" th:if="${mode=='new'}">Ajout des
+					Equipes</div>
+				<div class="card-header" th:if="${mode=='edit'}">Modification
+					des Equipes</div>
+				<div class="card-body">
+					<form th:action="@{saveEquipe}" method="post">
+						<div class="form-group">
+							<label class="control-label" hidden>ID Equipe :</label> <input
+								type="hidden" name="idEquipe" class="form-control"
+								th:value="${equipe.idEquipe}" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Nom Equipe :</label> <input
+								type="text" name="nomEquipe" class="form-control"
+								th:value="${equipe.nomEquipe}" /> <span
+								th:errors=${equipe.nomEquipe} class="text-danger"> </span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">budget Equipe :</label> <input
+								type="text" name="budget" class="form-control"
+								th:value="${equipe.budget}" /> <span th:errors=${equipe.budget}
+								class="text-danger"> </span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Champions :</label> <input
+								type="number" name="Champions" class="form-control"
+								th:value="${equipe.Champions}" /> <span
+								th:errors=${equipe.Champions} class="text-danger"> </span>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">date création :</label> <input
+								type="date" name="dateCreation" class="form-control"
+								th:value="${equipe.dateCreation}" /> <span
+								th:errors=${equipe.dateCreation} class="text-danger"> </span>
+						</div>
+
+						<!-- <div class="form-group">
+							<select name="categorie" class="form-control">
+							  <option th:each="cat : ${categories}" th:value="${cat.idCat}" th:text="${cat.nomCat}"></option>	
+							</select>
+						</div> -->
+
+						<div class="form-group">
+							<label class="control-label">Ligue :</label> <select type="text"
+								name="ligue" class="form-control"
+								th:value="${equipe.ligue.idLigue}">
+								<option th:each="c:${ligues}" th:if="${mode=='edit'}"
+									th:value="${c.idLigue}" th:text="${c.nomLigue}"
+									th:selected="${ c.idLigue==equipe.ligue.idLigue}"></option>
+
+								<option th:each="c:${ligues}" th:if="${mode=='new'}"
+									th:value="${c.idLigue}" th:text="${c.nomLigue}"></option>
+							</select>
+						</div>
+
+
+
+						<div>
+							<button type="submit" class="btn btn-primary">Valider</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
